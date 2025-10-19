@@ -11,7 +11,8 @@
       "type": "vector",
       "url": "https://vector.biip.lt/tile.json",
       "attribution": "<a href=\"https://www.geoportal.lt/geoportal/web/georeferencinio-pagrindo-kadastras-grpk\" target=\"_blank\">&copy; Geoportal.lt</a> <a href=\"https://www.registrucentras.lt/p/1187\" target=\"_blank\">&copy; Registrų centras</a> <a href=\"https://stvk.lt/\" target=\"_blank\">&copy; Saugomų teritorijų valstybės kadastras</a> <a href=\"https://openmaptiles.org/schema/\" target=\"_blank\">&copy; OpenMapTiles</a>"
-    }
+    },
+    "dem": {"type": "vector", "url": "https://openmap.lt/styles/hillshade.json"}
   },
   "sprite": "https://basemap.biip.lt/sprite/bright",
   "glyphs": "https://basemap.biip.lt/font/{fontstack}/{range}.pbf",
@@ -19,17 +20,20 @@
     {
       "id": "background",
       "type": "background",
+      "layout": {"visibility": "visible"},
       "paint": {"background-color": "rgba(209, 231, 199, 1)"}
     },
     {
-  "id": "hillshading",
-  "type": "hillshade",
-  "source": "dem",
-  "minzoom": 9,
-  "paint": {
-    "hillshade-exaggeration": 0.5
-  }
-},
+      "id": "hillshading",
+      "type": "hillshade",
+      "source": "dem",
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "hillshade-shadow-color": ["rgba(255, 255, 255, 1)"],
+        "hillshade-highlight-color": ["rgba(255, 255, 255, 1)"],
+        "hillshade-exaggeration": 0.5
+      }
+    },
     {
       "id": "landcover-glacier",
       "type": "fill",
@@ -2321,5 +2325,4 @@
     }
   ],
   "id": "bright"
-
 }
