@@ -22,6 +22,15 @@
       "paint": {"background-color": "rgba(209, 231, 199, 1)"}
     },
     {
+  "id": "hillshading",
+  "type": "hillshade",
+  "source": "dem",
+  "minzoom": 9,
+  "paint": {
+    "hillshade-exaggeration": 0.5
+  }
+},
+    {
       "id": "landcover-glacier",
       "type": "fill",
       "source": "openmaptiles",
@@ -2312,4 +2321,5 @@
     }
   ],
   "id": "bright"
+
 }
