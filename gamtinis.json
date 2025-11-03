@@ -24,17 +24,6 @@
       "paint": {"background-color": "rgba(209, 231, 199, 1)"}
     },
     {
-      "id": "hillshading",
-      "type": "hillshade",
-      "source": "dem",
-      "layout": {"visibility": "visible"},
-      "paint": {
-        "hillshade-shadow-color": ["rgba(255, 255, 255, 1)"],
-        "hillshade-highlight-color": ["rgba(255, 255, 255, 1)"],
-        "hillshade-exaggeration": 0.5
-      }
-    },
-    {
       "id": "landcover-glacier",
       "type": "fill",
       "source": "openmaptiles",
@@ -50,20 +39,26 @@
       "type": "fill",
       "source": "openmaptiles",
       "source-layer": "park",
-      "maxzoom": 16,
+      "maxzoom": 18,
       "filter": ["all", ["==", "class", "protected_area"]],
       "layout": {"visibility": "visible"},
-      "paint": {"fill-color": "rgba(167, 227, 136, 1)", "fill-opacity": 0.8}
+      "paint": {
+        "fill-color": "rgba(158, 232, 120, 1)",
+        "fill-opacity": {"stops": [[10, 1], [15, 0.3]]}
+      }
     },
     {
       "id": "park-national",
       "type": "fill",
       "source": "openmaptiles",
       "source-layer": "park",
-      "maxzoom": 16,
+      "maxzoom": 18,
       "filter": ["all", ["==", "class", "national_park"]],
       "layout": {"visibility": "visible"},
-      "paint": {"fill-color": "rgba(102, 170, 68, 1)", "fill-opacity": 0.6}
+      "paint": {
+        "fill-color": "rgba(102, 170, 68, 1)",
+        "fill-opacity": {"stops": [[10, 1], [15, 0.3]]}
+      }
     },
     {
       "id": "landuse-residential",
@@ -2048,8 +2043,8 @@
       "type": "symbol",
       "source": "openmaptiles",
       "source-layer": "park",
-      "minzoom": 7,
-      "maxzoom": 13,
+      "minzoom": 8,
+      "maxzoom": 15,
       "filter": ["all", ["in", "class", "protected_area"]],
       "layout": {
         "text-field": "{name}",
@@ -2065,7 +2060,7 @@
         "icon-pitch-alignment": "auto"
       },
       "paint": {
-        "text-color": "rgba(84, 154, 39, 1)",
+        "text-color": "rgba(69, 121, 36, 1)",
         "text-halo-width": 1,
         "text-halo-color": "rgba(255, 255, 255, 0.7)"
       }
@@ -2076,7 +2071,7 @@
       "source": "openmaptiles",
       "source-layer": "park",
       "minzoom": 7,
-      "maxzoom": 13,
+      "maxzoom": 15,
       "filter": ["all", ["in", "class", "national_park"]],
       "layout": {
         "text-field": "{name}",
@@ -2093,7 +2088,7 @@
         "text-transform": "uppercase"
       },
       "paint": {
-        "text-color": "rgba(63, 121, 26, 1)",
+        "text-color": "rgba(33, 73, 6, 1)",
         "text-halo-width": 1,
         "text-halo-color": "rgba(255, 255, 255, 0.7)"
       }
