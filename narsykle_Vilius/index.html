@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mano žemėlapis</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/maplibre-gl@^5.13.0/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/maplibre-gl-measures@latest/dist/maplibre-gl-measures.js"></script>
+
+    <link
+      href="https://unpkg.com/maplibre-gl@^5.13.0/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+     <!--<script
+      src="https://unpkg.com/browse/@stadiamaps/maplibre-search-box/dist/maplibre-search-box.umd.js"
+      type="application/javascript">
+    </script>
+
+    <link
+    href="https://unpkg.com/@stadiamaps/maplibre-search-box/dist/maplibre-search-box.css"
+    rel="stylesheet"
+    /> -->
+
+    <script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.5.0/dist/maplibre-gl-geocoder.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.5.0/dist/maplibre-gl-geocoder.css"
+/>
+
+    
+  </head>
+  <body>
+    <div id="app" class="container-fluid">
+      <div
+        class="row bg-success-subtle d-flex align-items-center"
+        style="height: 5%"
+      >
+        <div class="col">
+          <img src="img/zenklas_priartintas3.png" height="35px" />
+        </div>
+        <div class="col-6"></div>
+        <div class="col">
+          <a type="button" class="mr-2" data-bs-toggle="modal" data-bs-target="#Daugiau">
+            Daugiau informacijos
+          </a>
+          <!-- Button trigger modal -->
+          <a type="button" class="mr-2" data-bs-toggle="modal" data-bs-target="#Apie">
+            Apie
+          </a>
+        </div>
+      </div>
+      <div class="row" style="height: 95%">
+        <div class="col bg-body-tertiary">
+          <div class="p-2">
+            <div class="form-check my-2">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="checkDefault"
+                onchange="toggleLayer('gelezinkelio_vezes-layer')"
+              />
+              <label class="form-check-label" for="checkDefault">
+                Geležinkelio bėgiai
+              </label>
+            </div>
+            <div class="form-check my-2">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="checkChecked"
+                onchange="toggleLayer('stotys-layer')"
+              />
+              <label class="form-check-label" for="checkChecked">
+                Geležinkelio stotys ir stotelės
+              </label>
+            </div>
+            <div class="form-check my-2">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="checkDefault"
+                onchange="toggleLayer('savivaldybes_pagal_gelezinkeliu_ilgi-layer')"
+              />
+              <label class="form-check-label" for="checkDefault">
+              Savivaldybės pagal geležinkelių ilgį
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div id="map" class="col-9 position-relative">
+          <div
+            class="btn-group btn-group-sm position-absolute bottom-0 mb-2"
+            role="group"
+            aria-label="Basic radio toggle button group"
+          >
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio2"
+              autocomplete="off"
+              checked
+              onclick="initMap('topo')"
+            />
+            <label class="btn btn-success" style="z-index: 99" for="btnradio2"
+              >Topo</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio1"
+              autocomplete="off"
+              onclick="initMap('pilkas')"
+            />
+            <label class="btn btn-success" style="z-index: 99" for="btnradio1"
+              >Pilkas</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio3"
+              autocomplete="off"
+              onclick="initMap('gamtinis')"
+            />
+            <label class="btn btn-success" style="z-index: 99" for="btnradio3"
+              >Gamtinis</label
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+<div class="modal fade" id="Apie" tabindex="-1" aria-labelledby="ApieLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ApieLabel">Turinys</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <b>Autorius:</b> Vilius Talkevičius 
+        <br>
+        <b>Organizacija:</b> Vilniaus Universitetas
+        <br>
+        <b>Paskutinio atnaujinimo data:</b> 2025-12-19
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Uždaryti</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="Daugiau" tabindex="-1" aria-labelledby="DaugiauLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="DaugiauLabel">Turinys</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <b>Duomenų šaltiniai:</b>
+        <br>
+        <b>Geležinkelio bėgiai:</b>
+        <br>
+        Georeferencinio pagrindo kadastras (<a target="_blank" href=https://www.geoportal.lt/geoportal/web/georeferencinio-pagrindo-kadastras-grpk>Nuoroda</a>)
+        <br>
+        <b>Geležinkelio stotys ir stotelės:</b>
+        <br>
+        OpenStreetMap (<a href=https://wiki.openstreetmap.org/wiki/Tag:railway%3Dstation>Nuoroda</a>)
+        <br>
+        <b>Savivaldybės:</b>
+        <br>
+        Inspire. Administracinis suskirstymas (<a href=https://www.geoportal.lt/geoportal/duomenu-paieska#queryText=Administraciniai%20vienetai%20(INSPIRE%20duomen%C5%B3%20rinkinys>Nuoroda</a>)
+        <br>
+        <i>Bendras geležinkelių ilgis savivaldybėje yra apskaičiuotas naudojant geležinkelio bėgių duomenis</i>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Uždaryti</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="main.js"></script>
+  </body>
+</html>
